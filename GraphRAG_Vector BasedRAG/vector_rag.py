@@ -79,8 +79,8 @@ from langchain.schema import HumanMessage, SystemMessage
 # ==================== 配置部分 ====================
 # 配置 OpenAI API 环境变量
 # 注意：在生产环境中应该使用更安全的方式管理 API 密钥
-os.environ["OPENAI_API_KEY"] = 'OPENAI_API_KEY'
-os.environ["OPENAI_API_BASE"] = 'OPENAI_API_BASE'
+os.environ["OPENAI_API_KEY"] = 'your_api_key'
+os.environ["OPENAI_API_BASE"] = 'API_BASE'
 
 # ==================== 模型初始化 ====================
 # 初始化大语言模型 (LLM)
@@ -251,4 +251,5 @@ if __name__ == "__main__":
     print(f"🤖 Vector-based RAG 回答:")
     print(f"{response}")
     print("\n" + "="*80)
+
     print("✅ 查询完成")
