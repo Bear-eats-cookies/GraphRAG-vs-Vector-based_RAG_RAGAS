@@ -71,8 +71,8 @@ import shutil
 # ==================== 配置部分 ====================
 # 配置 OpenAI API 环境变量
 # 注意：在生产环境中应该使用更安全的方式管理 API 密钥
-os.environ["OPENAI_API_KEY"] = 'sk-Sy5Z7b2m4sIDaZtFKZAIkQhAwFEn7adveD2ZaByDYdZMsn4V'
-os.environ["OPENAI_API_BASE"] = 'https://api.agicto.cn/v1'
+os.environ["OPENAI_API_KEY"] = 'your_api_key'
+os.environ["OPENAI_API_BASE"] = 'API_BASE'
 
 # ==================== 模型初始化 ====================
 # 初始化大语言模型 (LLM)
@@ -322,4 +322,5 @@ if __name__ == "__main__":
     
     注意：整个过程是异步的，适合处理大规模数据和复杂查询
     """
+
     asyncio.run(graphrag_query_demo())
