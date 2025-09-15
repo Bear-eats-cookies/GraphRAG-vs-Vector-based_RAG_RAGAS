@@ -1,0 +1,1371 @@
+2025-09-06 10:25:23.0518 - INFO - graphrag.cli.index - Logging enabled at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\logs\logs.txt
+2025-09-06 10:26:24.0455 - INFO - graphrag.index.validate_config - LLM Config Params Validated
+2025-09-06 10:26:28.0296 - INFO - graphrag.index.validate_config - Embedding LLM Config Params Validated
+2025-09-06 10:26:28.0296 - INFO - graphrag.cli.index - Starting pipeline run. False
+2025-09-06 10:26:28.0299 - INFO - graphrag.cli.index - Using default configuration: {
+    "root_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "gpt-4o-mini",
+            "encoding_model": "o200k_base",
+            "api_base": "https://api.agicto.cn/v1",
+            "api_version": "",
+            "deployment_name": "gpt-4o-mini",
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": false,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 5,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "text-embedding-3-small",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://api.agicto.cn/v1",
+            "api_version": "",
+            "deployment_name": "text-embedding-3-small",
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": null,
+            "requests_per_minute": null,
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 5,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "storage": {
+            "type": "file",
+            "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\input",
+            "storage_account_blob_url": null,
+            "cosmosdb_account_url": null
+        },
+        "file_type": "text",
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1700,
+        "overlap": 50,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\output\\lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "event",
+            "financial_metric"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": null,
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.2,
+        "community_prop": 0.8,
+        "conversation_history_max_turns": 10,
+        "top_k_entities": 10,
+        "top_k_relationships": 40,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": null,
+        "reduce_prompt": null,
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": null,
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": null,
+        "reduce_prompt": null,
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": null,
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+2025-09-06 10:26:28.0302 - INFO - graphrag.api.index - Initializing indexing pipeline...
+2025-09-06 10:26:28.0302 - INFO - graphrag.index.workflows.factory - Creating pipeline with workflows: ['load_input_documents', 'create_base_text_units', 'create_final_documents', 'extract_graph', 'finalize_graph', 'extract_covariates', 'create_communities', 'create_final_text_units', 'create_community_reports', 'generate_text_embeddings']
+2025-09-06 10:26:28.0302 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 10:26:28.0303 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\output
+2025-09-06 10:26:28.0306 - INFO - graphrag.index.run.run_pipeline - Running standard indexing.
+2025-09-06 10:26:28.0309 - INFO - graphrag.index.run.run_pipeline - Executing pipeline...
+2025-09-06 10:26:28.0310 - INFO - graphrag.index.input.factory - loading input from root_dir=C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 10:26:28.0310 - INFO - graphrag.index.input.factory - Loading Input InputFileType.text
+2025-09-06 10:26:28.0310 - INFO - graphrag.storage.file_pipeline_storage - search C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input for files matching .*\.txt$
+2025-09-06 10:26:28.0311 - ERROR - graphrag.index.run.run_pipeline - error running workflow load_input_documents
+Traceback (most recent call last):
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\run\run_pipeline.py", line 108, in _run_pipeline
+    result = await workflow_function(config, context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\workflows\load_input_documents.py", line 26, in run_workflow
+    output = await load_input_documents(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\workflows\load_input_documents.py", line 43, in load_input_documents
+    return await create_input(config, storage)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\input\factory.py", line 37, in create_input
+    result = await loader(config, storage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\input\text.py", line 35, in load_text
+    return await load_files(load_file, config, storage)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\input\util.py", line 34, in load_files
+    raise ValueError(msg)
+ValueError: No InputFileType.text files found in C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 10:26:28.0313 - ERROR - graphrag.api.index - Workflow load_input_documents completed with errors
+2025-09-06 10:26:28.0315 - ERROR - graphrag.cli.index - Errors occurred during the pipeline run, see logs for more details.
+2025-09-06 10:27:27.0771 - INFO - graphrag.cli.index - Logging enabled at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\logs\logs.txt
+2025-09-06 10:28:28.0723 - INFO - graphrag.index.validate_config - LLM Config Params Validated
+2025-09-06 10:28:36.0579 - INFO - graphrag.index.validate_config - Embedding LLM Config Params Validated
+2025-09-06 10:28:36.0580 - INFO - graphrag.cli.index - Starting pipeline run. False
+2025-09-06 10:28:36.0581 - INFO - graphrag.cli.index - Using default configuration: {
+    "root_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "gpt-4o-mini",
+            "encoding_model": "o200k_base",
+            "api_base": "https://api.agicto.cn/v1",
+            "api_version": "",
+            "deployment_name": "gpt-4o-mini",
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": false,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 5,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "text-embedding-3-small",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://api.agicto.cn/v1",
+            "api_version": "",
+            "deployment_name": "text-embedding-3-small",
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": null,
+            "requests_per_minute": null,
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 5,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "storage": {
+            "type": "file",
+            "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\input",
+            "storage_account_blob_url": null,
+            "cosmosdb_account_url": null
+        },
+        "file_type": "text",
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1700,
+        "overlap": 50,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\output\\lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "event",
+            "financial_metric"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": null,
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.2,
+        "community_prop": 0.8,
+        "conversation_history_max_turns": 10,
+        "top_k_entities": 10,
+        "top_k_relationships": 40,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": null,
+        "reduce_prompt": null,
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": null,
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": null,
+        "reduce_prompt": null,
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": null,
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+2025-09-06 10:28:36.0583 - INFO - graphrag.api.index - Initializing indexing pipeline...
+2025-09-06 10:28:36.0584 - INFO - graphrag.index.workflows.factory - Creating pipeline with workflows: ['load_input_documents', 'create_base_text_units', 'create_final_documents', 'extract_graph', 'finalize_graph', 'extract_covariates', 'create_communities', 'create_final_text_units', 'create_community_reports', 'generate_text_embeddings']
+2025-09-06 10:28:36.0584 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 10:28:36.0584 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\output
+2025-09-06 10:28:36.0587 - INFO - graphrag.index.run.run_pipeline - Running standard indexing.
+2025-09-06 10:28:36.0590 - INFO - graphrag.index.run.run_pipeline - Executing pipeline...
+2025-09-06 10:28:36.0590 - INFO - graphrag.index.input.factory - loading input from root_dir=C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 10:28:36.0590 - INFO - graphrag.index.input.factory - Loading Input InputFileType.text
+2025-09-06 10:28:36.0591 - INFO - graphrag.storage.file_pipeline_storage - search C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input for files matching .*\.txt$
+2025-09-06 10:28:36.0597 - INFO - graphrag.index.input.util - Found 1 InputFileType.text files, loading 1
+2025-09-06 10:28:36.0598 - INFO - graphrag.index.input.util - Total number of unfiltered InputFileType.text rows: 1
+2025-09-06 10:28:36.0598 - INFO - graphrag.index.workflows.load_input_documents - Final # of rows loaded: 1
+2025-09-06 10:28:36.0621 - INFO - graphrag.api.index - Workflow load_input_documents completed successfully
+2025-09-06 10:28:36.0627 - INFO - graphrag.index.workflows.create_base_text_units - Workflow started: create_base_text_units
+2025-09-06 10:28:36.0628 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-09-06 10:28:36.0653 - INFO - graphrag.index.workflows.create_base_text_units - Starting chunking process for 1 documents
+2025-09-06 10:28:36.0661 - INFO - graphrag.index.workflows.create_base_text_units - chunker progress:  1/1
+2025-09-06 10:28:36.0671 - INFO - graphrag.index.workflows.create_base_text_units - Workflow completed: create_base_text_units
+2025-09-06 10:28:36.0672 - INFO - graphrag.api.index - Workflow create_base_text_units completed successfully
+2025-09-06 10:28:36.0675 - INFO - graphrag.index.workflows.create_final_documents - Workflow started: create_final_documents
+2025-09-06 10:28:36.0675 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-09-06 10:28:36.0679 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 10:28:36.0694 - INFO - graphrag.index.workflows.create_final_documents - Workflow completed: create_final_documents
+2025-09-06 10:28:36.0694 - INFO - graphrag.api.index - Workflow create_final_documents completed successfully
+2025-09-06 10:28:36.0699 - INFO - graphrag.index.workflows.extract_graph - Workflow started: extract_graph
+2025-09-06 10:28:36.0699 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 10:43:37.0341 - INFO - graphrag.logger.progress - extract graph progress: 1/5
+2025-09-06 10:44:37.0357 - INFO - graphrag.logger.progress - extract graph progress: 2/5
+2025-09-06 10:45:37.0371 - INFO - graphrag.logger.progress - extract graph progress: 3/5
+2025-09-06 10:46:37.0384 - INFO - graphrag.logger.progress - extract graph progress: 4/5
+2025-09-06 10:47:37.0390 - INFO - graphrag.logger.progress - extract graph progress: 5/5
+2025-09-06 10:47:38.0144 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 1/112
+2025-09-06 10:47:38.0146 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 2/112
+2025-09-06 10:47:38.0147 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 3/112
+2025-09-06 10:47:38.0147 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 4/112
+2025-09-06 10:47:38.0147 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 5/112
+2025-09-06 10:47:38.0148 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 6/112
+2025-09-06 10:47:38.0148 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 7/112
+2025-09-06 10:47:38.0148 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 8/112
+2025-09-06 10:47:38.0149 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 9/112
+2025-09-06 10:47:38.0149 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 10/112
+2025-09-06 10:47:38.0149 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 11/112
+2025-09-06 10:47:38.0149 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 12/112
+2025-09-06 10:47:38.0149 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 13/112
+2025-09-06 10:47:38.0150 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 14/112
+2025-09-06 10:47:38.0150 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 15/112
+2025-09-06 10:47:38.0151 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 16/112
+2025-09-06 10:47:38.0151 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 17/112
+2025-09-06 10:47:38.0152 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 18/112
+2025-09-06 10:47:38.0152 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 19/112
+2025-09-06 10:47:38.0152 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 20/112
+2025-09-06 10:47:38.0152 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 21/112
+2025-09-06 10:47:38.0152 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 22/112
+2025-09-06 10:47:38.0152 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 23/112
+2025-09-06 10:47:38.0153 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 24/112
+2025-09-06 10:47:38.0153 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 25/112
+2025-09-06 10:47:38.0153 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 26/112
+2025-09-06 10:47:38.0153 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 27/112
+2025-09-06 10:47:38.0153 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 28/112
+2025-09-06 10:47:38.0153 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 29/112
+2025-09-06 10:47:38.0154 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 30/112
+2025-09-06 10:47:38.0154 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 31/112
+2025-09-06 10:47:38.0154 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 32/112
+2025-09-06 10:47:38.0154 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 33/112
+2025-09-06 10:47:38.0154 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 34/112
+2025-09-06 10:52:38.0229 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 35/112
+2025-09-06 10:52:38.0230 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 36/112
+2025-09-06 10:52:38.0230 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 37/112
+2025-09-06 10:52:38.0230 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 38/112
+2025-09-06 10:52:38.0230 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 39/112
+2025-09-06 10:52:38.0230 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 40/112
+2025-09-06 10:52:38.0230 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 41/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 42/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 43/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 44/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 45/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 46/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 47/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 48/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 49/112
+2025-09-06 10:52:38.0231 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 50/112
+2025-09-06 10:53:38.0238 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 51/112
+2025-09-06 10:54:38.0248 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 52/112
+2025-09-06 10:55:38.0261 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 53/112
+2025-09-06 10:56:38.0279 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 54/112
+2025-09-06 10:56:38.0280 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 55/112
+2025-09-06 10:56:38.0282 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 56/112
+2025-09-06 10:56:38.0282 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 57/112
+2025-09-06 10:56:38.0282 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 58/112
+2025-09-06 10:56:38.0282 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 59/112
+2025-09-06 10:56:38.0283 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 60/112
+2025-09-06 10:56:38.0283 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 61/112
+2025-09-06 10:56:38.0283 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 62/112
+2025-09-06 10:56:38.0283 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 63/112
+2025-09-06 10:56:38.0283 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 64/112
+2025-09-06 10:56:38.0283 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 65/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 66/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 67/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 68/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 69/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 70/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 71/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 72/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 73/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 74/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 75/112
+2025-09-06 10:56:38.0284 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 76/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 77/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 78/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 79/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 80/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 81/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 82/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 83/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 84/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 85/112
+2025-09-06 10:56:38.0285 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 86/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 87/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 88/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 89/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 90/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 91/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 92/112
+2025-09-06 10:56:38.0286 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 93/112
+2025-09-06 10:56:38.0287 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 94/112
+2025-09-06 10:56:38.0287 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 95/112
+2025-09-06 10:56:38.0287 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 96/112
+2025-09-06 10:56:38.0287 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 97/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 98/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 99/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 100/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 101/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 102/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 103/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 104/112
+2025-09-06 10:56:38.0288 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 105/112
+2025-09-06 10:56:38.0289 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 106/112
+2025-09-06 10:56:38.0289 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 107/112
+2025-09-06 10:56:38.0289 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 108/112
+2025-09-06 10:56:38.0289 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 109/112
+2025-09-06 11:00:38.0292 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 110/112
+2025-09-06 11:01:38.0300 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 111/112
+2025-09-06 11:02:38.0308 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 112/112
+2025-09-06 11:02:38.0344 - INFO - graphrag.index.workflows.extract_graph - Workflow completed: extract_graph
+2025-09-06 11:02:38.0346 - INFO - graphrag.api.index - Workflow extract_graph completed successfully
+2025-09-06 11:02:38.0377 - INFO - graphrag.index.workflows.finalize_graph - Workflow started: finalize_graph
+2025-09-06 11:02:38.0378 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:02:38.0394 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:02:38.0432 - INFO - graphrag.index.workflows.finalize_graph - Workflow completed: finalize_graph
+2025-09-06 11:02:38.0432 - INFO - graphrag.api.index - Workflow finalize_graph completed successfully
+2025-09-06 11:02:38.0450 - INFO - graphrag.index.workflows.extract_covariates - Workflow started: extract_covariates
+2025-09-06 11:02:38.0451 - INFO - graphrag.index.workflows.extract_covariates - Workflow completed: extract_covariates
+2025-09-06 11:02:38.0451 - INFO - graphrag.api.index - Workflow extract_covariates completed successfully
+2025-09-06 11:02:38.0452 - INFO - graphrag.index.workflows.create_communities - Workflow started: create_communities
+2025-09-06 11:02:38.0453 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:02:38.0463 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:02:38.0507 - INFO - graphrag.index.workflows.create_communities - Workflow completed: create_communities
+2025-09-06 11:02:38.0508 - INFO - graphrag.api.index - Workflow create_communities completed successfully
+2025-09-06 11:02:38.0518 - INFO - graphrag.index.workflows.create_final_text_units - Workflow started: create_final_text_units
+2025-09-06 11:02:38.0520 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 11:02:38.0525 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:02:38.0532 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:02:38.0559 - INFO - graphrag.index.workflows.create_final_text_units - Workflow completed: create_final_text_units
+2025-09-06 11:02:38.0559 - INFO - graphrag.api.index - Workflow create_final_text_units completed successfully
+2025-09-06 11:02:38.0567 - INFO - graphrag.index.workflows.create_community_reports - Workflow started: create_community_reports
+2025-09-06 11:02:38.0568 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:02:38.0573 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:02:38.0579 - INFO - graphrag.utils.storage - reading table from storage: communities.parquet
+2025-09-06 11:02:38.0599 - INFO - graphrag.index.operations.summarize_communities.graph_context.context_builder - Number of nodes at level=0 => 52
+2025-09-06 11:07:39.0599 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 1/5
+2025-09-06 11:08:39.0600 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 2/5
+2025-09-06 11:09:39.0610 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 3/5
+2025-09-06 11:10:39.0610 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 4/5
+2025-09-06 11:11:39.0613 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 5/5
+2025-09-06 11:11:39.0623 - INFO - graphrag.index.workflows.create_community_reports - Workflow completed: create_community_reports
+2025-09-06 11:11:39.0624 - INFO - graphrag.api.index - Workflow create_community_reports completed successfully
+2025-09-06 11:11:39.0632 - INFO - graphrag.index.workflows.generate_text_embeddings - Workflow started: generate_text_embeddings
+2025-09-06 11:11:39.0634 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-09-06 11:11:39.0638 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:11:39.0643 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 11:11:39.0648 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:11:39.0651 - INFO - graphrag.utils.storage - reading table from storage: community_reports.parquet
+2025-09-06 11:11:39.0660 - INFO - graphrag.index.workflows.generate_text_embeddings - Creating embeddings
+2025-09-06 11:11:39.0660 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+2025-09-06 11:11:39.0678 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-09-06 11:11:40.0390 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 54 inputs via 54 snippets using 4 batches. max_batch_size=16, batch_max_tokens=8191
+2025-09-06 11:11:45.0814 - INFO - graphrag.logger.progress - generate embeddings progress: 1/4
+2025-09-06 11:11:49.0047 - INFO - graphrag.logger.progress - generate embeddings progress: 2/4
+2025-09-06 11:11:49.0999 - INFO - graphrag.logger.progress - generate embeddings progress: 3/4
+2025-09-06 11:11:51.0269 - INFO - graphrag.logger.progress - generate embeddings progress: 4/4
+2025-09-06 11:11:51.0293 - ERROR - graphrag.index.run.run_pipeline - error running workflow generate_text_embeddings
+Traceback (most recent call last):
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\run\run_pipeline.py", line 108, in _run_pipeline
+    result = await workflow_function(config, context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\workflows\generate_text_embeddings.py", line 65, in run_workflow
+    output = await generate_text_embeddings(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\workflows\generate_text_embeddings.py", line 157, in generate_text_embeddings
+    outputs[field] = await _run_embeddings(
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\workflows\generate_text_embeddings.py", line 176, in _run_embeddings
+    data["embedding"] = await embed_text(
+                        ^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\operations\embed_text\embed_text.py", line 59, in embed_text
+    return await _text_embed_with_vector_store(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\index\operations\embed_text\embed_text.py", line 178, in _text_embed_with_vector_store
+    vector_store.load_documents(documents, overwrite and i == 0)
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\graphrag\vector_stores\lancedb.py", line 67, in load_documents
+    self.document_collection = self.db_connection.create_table(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\db.py", line 612, in create_table
+    tbl = LanceTable.create(
+          ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\table.py", line 2637, in create
+    self._table = LOOP.run(
+                  ^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\background_loop.py", line 25, in run
+    return asyncio.run_coroutine_threadsafe(future, self.loop).result()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\db.py", line 1059, in create_table
+    data, schema = sanitize_create_table(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\table.py", line 411, in sanitize_create_table
+    data = _sanitize_data(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\table.py", line 262, in _sanitize_data
+    target_schema, reader = _infer_target_schema(reader)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\table.py", line 3097, in _infer_target_schema
+    peeked, reader = peek_reader(reader)
+                     ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\arrow.py", line 76, in peek_reader
+    batch = reader.read_next_batch()
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow\\ipc.pxi", line 700, in pyarrow.lib.RecordBatchReader.read_next_batch
+  File "pyarrow\\error.pxi", line 88, in pyarrow.lib.check_status
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\table.py", line 2974, in gen
+    batch = _handle_bad_vector_column(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86159\anaconda3\envs\rag\Lib\site-packages\lancedb\table.py", line 3058, in _handle_bad_vector_column
+    return data.set_column(position, vector_column_name, vec_arr)
+           ^^^^^^^^^^^^^^^
+AttributeError: 'pyarrow.lib.RecordBatch' object has no attribute 'set_column'. Did you mean: '_column'?
+2025-09-06 11:11:51.0304 - ERROR - graphrag.api.index - Workflow generate_text_embeddings completed with errors
+2025-09-06 11:11:51.0308 - ERROR - graphrag.cli.index - Errors occurred during the pipeline run, see logs for more details.
+2025-09-06 11:18:26.0737 - INFO - graphrag.cli.index - Logging enabled at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\logs\logs.txt
+2025-09-06 11:19:27.0811 - INFO - graphrag.index.validate_config - LLM Config Params Validated
+2025-09-06 11:19:36.0514 - INFO - graphrag.index.validate_config - Embedding LLM Config Params Validated
+2025-09-06 11:19:36.0515 - INFO - graphrag.cli.index - Starting pipeline run. False
+2025-09-06 11:19:36.0516 - INFO - graphrag.cli.index - Using default configuration: {
+    "root_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "gpt-4o-mini",
+            "encoding_model": "o200k_base",
+            "api_base": "https://api.agicto.cn/v1",
+            "api_version": "",
+            "deployment_name": "gpt-4o-mini",
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": false,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 5,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "text-embedding-3-small",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://api.agicto.cn/v1",
+            "api_version": "",
+            "deployment_name": "text-embedding-3-small",
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": null,
+            "requests_per_minute": null,
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 5,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "storage": {
+            "type": "file",
+            "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\input",
+            "storage_account_blob_url": null,
+            "cosmosdb_account_url": null
+        },
+        "file_type": "text",
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1700,
+        "overlap": 50,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "C:\\Users\\86159\\Desktop\\GraphRAG_Vector BasedRAG\\ragtest\\ragtest\\output\\lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "event",
+            "financial_metric"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": null,
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.2,
+        "community_prop": 0.8,
+        "conversation_history_max_turns": 10,
+        "top_k_entities": 10,
+        "top_k_relationships": 40,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": null,
+        "reduce_prompt": null,
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": null,
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": null,
+        "reduce_prompt": null,
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": null,
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+2025-09-06 11:19:36.0543 - INFO - graphrag.api.index - Initializing indexing pipeline...
+2025-09-06 11:19:36.0543 - INFO - graphrag.index.workflows.factory - Creating pipeline with workflows: ['load_input_documents', 'create_base_text_units', 'create_final_documents', 'extract_graph', 'finalize_graph', 'extract_covariates', 'create_communities', 'create_final_text_units', 'create_community_reports', 'generate_text_embeddings']
+2025-09-06 11:19:36.0544 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 11:19:36.0544 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\output
+2025-09-06 11:19:36.0548 - INFO - graphrag.index.run.run_pipeline - Running standard indexing.
+2025-09-06 11:19:36.0550 - INFO - graphrag.index.run.run_pipeline - Executing pipeline...
+2025-09-06 11:19:36.0551 - INFO - graphrag.index.input.factory - loading input from root_dir=C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input
+2025-09-06 11:19:36.0551 - INFO - graphrag.index.input.factory - Loading Input InputFileType.text
+2025-09-06 11:19:36.0551 - INFO - graphrag.storage.file_pipeline_storage - search C:\Users\86159\Desktop\GraphRAG_Vector BasedRAG\ragtest\ragtest\input for files matching .*\.txt$
+2025-09-06 11:19:36.0555 - INFO - graphrag.index.input.util - Found 1 InputFileType.text files, loading 1
+2025-09-06 11:19:36.0555 - INFO - graphrag.index.input.util - Total number of unfiltered InputFileType.text rows: 1
+2025-09-06 11:19:36.0556 - INFO - graphrag.index.workflows.load_input_documents - Final # of rows loaded: 1
+2025-09-06 11:19:36.0576 - INFO - graphrag.api.index - Workflow load_input_documents completed successfully
+2025-09-06 11:19:36.0581 - INFO - graphrag.index.workflows.create_base_text_units - Workflow started: create_base_text_units
+2025-09-06 11:19:36.0582 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-09-06 11:19:36.0607 - INFO - graphrag.index.workflows.create_base_text_units - Starting chunking process for 1 documents
+2025-09-06 11:19:36.0617 - INFO - graphrag.index.workflows.create_base_text_units - chunker progress:  1/1
+2025-09-06 11:19:36.0625 - INFO - graphrag.index.workflows.create_base_text_units - Workflow completed: create_base_text_units
+2025-09-06 11:19:36.0625 - INFO - graphrag.api.index - Workflow create_base_text_units completed successfully
+2025-09-06 11:19:36.0628 - INFO - graphrag.index.workflows.create_final_documents - Workflow started: create_final_documents
+2025-09-06 11:19:36.0629 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-09-06 11:19:36.0635 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 11:19:36.0652 - INFO - graphrag.index.workflows.create_final_documents - Workflow completed: create_final_documents
+2025-09-06 11:19:36.0653 - INFO - graphrag.api.index - Workflow create_final_documents completed successfully
+2025-09-06 11:19:36.0657 - INFO - graphrag.index.workflows.extract_graph - Workflow started: extract_graph
+2025-09-06 11:19:36.0658 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 11:24:37.0185 - INFO - graphrag.logger.progress - extract graph progress: 1/5
+2025-09-06 11:25:37.0204 - INFO - graphrag.logger.progress - extract graph progress: 2/5
+2025-09-06 11:26:37.0199 - INFO - graphrag.logger.progress - extract graph progress: 3/5
+2025-09-06 11:27:37.0211 - INFO - graphrag.logger.progress - extract graph progress: 4/5
+2025-09-06 11:28:37.0217 - INFO - graphrag.logger.progress - extract graph progress: 5/5
+2025-09-06 11:28:37.0732 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 1/56
+2025-09-06 11:28:37.0734 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 2/56
+2025-09-06 11:28:37.0734 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 3/56
+2025-09-06 11:28:37.0734 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 4/56
+2025-09-06 11:28:37.0734 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 5/56
+2025-09-06 11:28:37.0735 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 6/56
+2025-09-06 11:28:37.0735 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 7/56
+2025-09-06 11:28:37.0735 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 8/56
+2025-09-06 11:28:37.0735 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 9/56
+2025-09-06 11:28:37.0735 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 10/56
+2025-09-06 11:28:37.0736 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 11/56
+2025-09-06 11:28:37.0736 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 12/56
+2025-09-06 11:28:37.0736 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 13/56
+2025-09-06 11:28:37.0736 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 14/56
+2025-09-06 11:28:37.0736 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 15/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 16/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 17/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 18/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 19/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 20/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 21/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 22/56
+2025-09-06 11:28:37.0737 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 23/56
+2025-09-06 11:28:37.0741 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 24/56
+2025-09-06 11:28:37.0741 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 25/56
+2025-09-06 11:29:37.0768 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 26/56
+2025-09-06 11:29:37.0769 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 27/56
+2025-09-06 11:29:37.0770 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 28/56
+2025-09-06 11:29:37.0771 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 29/56
+2025-09-06 11:29:37.0771 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 30/56
+2025-09-06 11:29:37.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 31/56
+2025-09-06 11:29:37.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 32/56
+2025-09-06 11:29:37.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 33/56
+2025-09-06 11:29:37.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 34/56
+2025-09-06 11:29:37.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 35/56
+2025-09-06 11:29:37.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 36/56
+2025-09-06 11:29:37.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 37/56
+2025-09-06 11:29:37.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 38/56
+2025-09-06 11:29:37.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 39/56
+2025-09-06 11:29:37.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 40/56
+2025-09-06 11:29:37.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 41/56
+2025-09-06 11:29:37.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 42/56
+2025-09-06 11:29:37.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 43/56
+2025-09-06 11:29:37.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 44/56
+2025-09-06 11:29:37.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 45/56
+2025-09-06 11:29:37.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 46/56
+2025-09-06 11:29:37.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 47/56
+2025-09-06 11:29:37.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 48/56
+2025-09-06 11:29:37.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 49/56
+2025-09-06 11:29:37.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 50/56
+2025-09-06 11:29:37.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 51/56
+2025-09-06 11:29:37.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 52/56
+2025-09-06 11:29:37.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 53/56
+2025-09-06 11:29:37.0776 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 54/56
+2025-09-06 11:32:37.0808 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 55/56
+2025-09-06 11:33:37.0818 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 56/56
+2025-09-06 11:33:37.0828 - INFO - graphrag.index.workflows.extract_graph - Workflow completed: extract_graph
+2025-09-06 11:33:37.0828 - INFO - graphrag.api.index - Workflow extract_graph completed successfully
+2025-09-06 11:33:37.0840 - INFO - graphrag.index.workflows.finalize_graph - Workflow started: finalize_graph
+2025-09-06 11:33:37.0841 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:33:37.0846 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:33:37.0867 - INFO - graphrag.index.workflows.finalize_graph - Workflow completed: finalize_graph
+2025-09-06 11:33:37.0867 - INFO - graphrag.api.index - Workflow finalize_graph completed successfully
+2025-09-06 11:33:37.0880 - INFO - graphrag.index.workflows.extract_covariates - Workflow started: extract_covariates
+2025-09-06 11:33:37.0880 - INFO - graphrag.index.workflows.extract_covariates - Workflow completed: extract_covariates
+2025-09-06 11:33:37.0880 - INFO - graphrag.api.index - Workflow extract_covariates completed successfully
+2025-09-06 11:33:37.0880 - INFO - graphrag.index.workflows.create_communities - Workflow started: create_communities
+2025-09-06 11:33:37.0881 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:33:37.0886 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:33:37.0917 - INFO - graphrag.index.workflows.create_communities - Workflow completed: create_communities
+2025-09-06 11:33:37.0917 - INFO - graphrag.api.index - Workflow create_communities completed successfully
+2025-09-06 11:33:37.0924 - INFO - graphrag.index.workflows.create_final_text_units - Workflow started: create_final_text_units
+2025-09-06 11:33:37.0924 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 11:33:37.0929 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:33:37.0933 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:33:37.0951 - INFO - graphrag.index.workflows.create_final_text_units - Workflow completed: create_final_text_units
+2025-09-06 11:33:37.0951 - INFO - graphrag.api.index - Workflow create_final_text_units completed successfully
+2025-09-06 11:33:37.0957 - INFO - graphrag.index.workflows.create_community_reports - Workflow started: create_community_reports
+2025-09-06 11:33:37.0958 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:33:37.0962 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:33:37.0966 - INFO - graphrag.utils.storage - reading table from storage: communities.parquet
+2025-09-06 11:33:37.0976 - INFO - graphrag.index.operations.summarize_communities.graph_context.context_builder - Number of nodes at level=0 => 26
+2025-09-06 11:37:38.0583 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 1/4
+2025-09-06 11:38:38.0593 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 2/4
+2025-09-06 11:39:38.0610 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 3/4
+2025-09-06 11:40:38.0605 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 4/4
+2025-09-06 11:40:38.0612 - INFO - graphrag.index.workflows.create_community_reports - Workflow completed: create_community_reports
+2025-09-06 11:40:38.0613 - INFO - graphrag.api.index - Workflow create_community_reports completed successfully
+2025-09-06 11:40:38.0621 - INFO - graphrag.index.workflows.generate_text_embeddings - Workflow started: generate_text_embeddings
+2025-09-06 11:40:38.0622 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-09-06 11:40:38.0626 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-09-06 11:40:38.0630 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-09-06 11:40:38.0634 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-09-06 11:40:38.0639 - INFO - graphrag.utils.storage - reading table from storage: community_reports.parquet
+2025-09-06 11:40:38.0645 - INFO - graphrag.index.workflows.generate_text_embeddings - Creating embeddings
+2025-09-06 11:40:38.0646 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+2025-09-06 11:40:38.0660 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-09-06 11:40:39.0126 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 26 inputs via 26 snippets using 2 batches. max_batch_size=16, batch_max_tokens=8191
+2025-09-06 11:40:47.0947 - INFO - graphrag.logger.progress - generate embeddings progress: 1/2
+2025-09-06 11:40:50.0577 - INFO - graphrag.logger.progress - generate embeddings progress: 2/2
+2025-09-06 11:40:50.0646 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding community.full_content: default-community-full_content
+2025-09-06 11:40:50.0648 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-09-06 11:40:50.0651 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 4 inputs via 4 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+2025-09-06 11:40:57.0255 - INFO - graphrag.logger.progress - generate embeddings progress: 1/1
+2025-09-06 11:40:57.0264 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding text_unit.text: default-text_unit-text
+2025-09-06 11:40:57.0266 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-09-06 11:40:57.0276 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 5 inputs via 5 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+2025-09-06 11:41:04.0782 - INFO - graphrag.logger.progress - generate embeddings progress: 1/1
+2025-09-06 11:41:04.0792 - INFO - graphrag.index.workflows.generate_text_embeddings - Workflow completed: generate_text_embeddings
+2025-09-06 11:41:04.0793 - INFO - graphrag.api.index - Workflow generate_text_embeddings completed successfully
+2025-09-06 11:41:04.0815 - INFO - graphrag.index.run.run_pipeline - Indexing pipeline complete.
+2025-09-06 11:41:04.0820 - INFO - graphrag.cli.index - All workflows completed successfully.

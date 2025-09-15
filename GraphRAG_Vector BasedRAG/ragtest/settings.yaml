@@ -1,0 +1,122 @@
+models:
+  default_chat_model:
+    type: openai_chat
+    api_base: 'api_base'
+    api_version: ""
+    auth_type: api_key
+    api_key: 'api_key'
+    model: gpt-4o-mini
+    deployment_name: gpt-4o-mini
+    model_supports_json: false
+    concurrent_requests: 5  # 降低并发请求，减少 API 压力
+    async_mode: threaded
+    retry_strategy: native
+    max_retries: 10
+    tokens_per_minute: auto
+    requests_per_minute: auto
+  default_embedding_model:
+    type: openai_embedding
+    api_base: 'api_base'
+    api_version: ""
+    auth_type: api_key
+    api_key: 'OPENAI_API_KEY'
+    model: text-embedding-3-small
+    deployment_name: text-embedding-3-small
+    model_supports_json: true
+    concurrent_requests: 5
+    async_mode: threaded
+    retry_strategy: native
+    max_retries: 10
+    tokens_per_minute: null
+    requests_per_minute: null
+
+input:
+  storage:
+    type: file
+    base_dir: "ragtest/input"
+  file_type: text
+
+chunks:
+  size: 1700
+  overlap: 50
+  group_by_columns: [id]
+
+output:
+  type: file
+  base_dir: "ragtest/output"
+
+cache:
+  type: file
+  base_dir: "cache"
+
+reporting:
+  type: file
+  base_dir: "logs"  # 确保日志目录存在
+
+vector_store:
+  default_vector_store:
+    type: lancedb
+    db_uri: "ragtest/output/lancedb"
+    container_name: default
+    overwrite: True
+
+embed_text:
+  model_id: default_embedding_model
+  vector_store_id: default_vector_store
+
+extract_graph:
+  model_id: default_chat_model
+  prompt: "prompts/extract_graph.txt"
+  entity_types: [organization, person, event, financial_metric]
+  max_gleanings: 1
+
+summarize_descriptions:
+  model_id: default_chat_model
+  prompt: "prompts/summarize_descriptions.txt"
+  max_length: 500
+
+extract_graph_nlp:
+  text_analyzer:
+    extractor_type: regex_english
+
+cluster_graph:
+  max_cluster_size: 10
+
+extract_claims:
+  enabled: false
+
+community_reports:
+  model_id: default_chat_model
+  graph_prompt: "prompts/community_report_graph.txt"
+  text_prompt: "prompts/community_report_text.txt"
+  max_length: 2000
+  max_input_length: 8000
+
+embed_graph:
+  enabled: false
+
+umap:
+  enabled: false
+
+local_search:
+  chat_model_id: default_chat_model
+  embedding_model_id: default_embedding_model
+  prompt: "prompts/local_search_system_prompt.txt"
+  text_unit_prop: 0.2
+  community_prop: 0.8
+  conversation_history_max_turns: 10
+  top_k_mapped_entities: 40
+  top_k_relationships: 40
+  include_entity_rank: True
+  include_relationship_weight: True
+  include_community_rank: False
+  max_tokens: 12000
+
+global_search:
+  enabled: false
+
+drift_search:
+  enabled: false
+
+basic_search:
+  enabled: false
