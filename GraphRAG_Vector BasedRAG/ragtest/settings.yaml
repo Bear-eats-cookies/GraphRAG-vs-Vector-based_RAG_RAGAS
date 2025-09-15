@@ -1,10 +1,10 @@
 models:
   default_chat_model:
     type: openai_chat
-    api_base: 'api_base'
+    api_base: 'your_api_base'
     api_version: ""
     auth_type: api_key
-    api_key: 'api_key'
+    api_key: 'your_api_key'
     model: gpt-4o-mini
     deployment_name: gpt-4o-mini
     model_supports_json: false
@@ -16,10 +16,10 @@ models:
     requests_per_minute: auto
   default_embedding_model:
     type: openai_embedding
-    api_base: 'api_base'
+    api_base: 'your_api_base'
     api_version: ""
     auth_type: api_key
-    api_key: 'OPENAI_API_KEY'
+    api_key:  'your_api_key'
     model: text-embedding-3-small
     deployment_name: text-embedding-3-small
     model_supports_json: true
